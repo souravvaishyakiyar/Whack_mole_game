@@ -10,6 +10,10 @@ let timeLeft=60;
 let hitPosition=null;
 let timerId=null;
 let randomMoleId=null;
+let hitmusic=new Audio('/music1.mp3');
+let gamemusic=new Audio('/music2.mp3');
+let grid=document.getElementsByClassName('grid')[0];
+// gamemusic.play();
 
 
 function randomMole(){
@@ -28,20 +32,31 @@ function randomMole(){
     timeLeftH2.innerText=`Time Left: ${timeLeft}`;
 
     if(timeLeft===0){
+      gamemusic.pause();
         clearInterval(timerId);
         clearInterval(randomMoleId);
+        grid.style.display='none';
+        pauseGameButton.style.display='none';
     }
   }
   
   function startGame(){
-    //score=0;
-    //=60;
+     score=0;
+    timeLeft=60;
+    scoreH2.innerHTML='Your Score: 0';
+    timeLeftH2.innerHTML='Time Left: 60';
+    grid.style.display='flex';
+    pauseGameButton.style.display='inline-block'
+
+    pauseGameButton.innerHTML='Pause';
+    gamemusic.play();
 
    timerId= setInterval(randomMole,1000);
    randomMoleId= setInterval(countDown,1000)
   }
   function pauseResumeGame(){
      if(pauseGameButton.textContent ==='Pause'){
+      gamemusic.pause();
         clearInterval(timerId);
         clearInterval(randomMoleId);
         timerId=null;
@@ -49,6 +64,7 @@ function randomMole(){
         pauseGameButton.textContent='Resume';
      }
      else{
+      gamemusic.play();
         timerId= setInterval(randomMole,1000);
         randomMoleId= setInterval(countDown,1000);
         pauseGameButton.textContent='Pause';
@@ -56,12 +72,19 @@ function randomMole(){
   }
   squares.forEach(square =>{
     square.addEventListener('mousedown',()=>{
+      if(timerId !==null){
         if(square.id === hitPosition)
         {
+            hitmusic.play();
+            setTimeout(() =>{
+              hitmusic.pause()
+            },250);
             score++;
-             scoreH2.innerText =`Your Score: ${score}`;
-           hitPosition=null;
+            scoreH2.innerText =`Your Score: ${score}`;
+            hitPosition=null;
         }
+      }
+       
     })
   })
   startNewGameButton.addEventListener('click',startGame);

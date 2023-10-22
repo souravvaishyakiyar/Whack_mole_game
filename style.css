@@ -61,3 +61,6 @@ button:hover{
     background-size: cover;
    
 }
+#pauseGame{
+    display: none;
+}
