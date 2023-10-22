@@ -56,3 +56,8 @@ button:hover{
     box-shadow: 1px 3px 5px rgb(150,45,255);
     margin: 10px;
 }
+.mole{
+   background: url('mole.jpg');
+    background-size: cover;
+   
+}
