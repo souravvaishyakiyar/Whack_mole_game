@@ -36,7 +36,7 @@ function randomMole(){
         clearInterval(timerId);
         clearInterval(randomMoleId);
         grid.style.display='none';
-        // pauseGameButton.style.display='none';
+         pauseGameButton.style.display='none';
     }
   }
   
